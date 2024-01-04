@@ -1,42 +1,36 @@
-# Discord Webhooks Sender
+# Webhook Sender
 
-This simple Python script allows you to easily set up and send messages to Discord webhooks. Follow the steps below to get started.
+Webhook Sender is a simple Python script that allows you to set up and send messages through Discord webhooks effortlessly.
 
 ## Setup
 
-### Step 1: Input Webhook Names and URLs
+### 1. Input Webhook Name & URL
 
-Open the file `1.Input_Webhook_Name_&_URL.txt` inside the "setup_discord_webhooks" folder. In this file, write each webhook's name and URL in the format `webhook_name: webhook_url` on separate lines. For example:
+In the "setup_discord_webhooks" folder, you'll find a file named `1.Input_Webhook_Name_&_URL.txt`. Open this file and add your Discord webhook names and URLs in the following format:
 
 ```plaintext
 webhook1: https://example.com/webhook1
 webhook2: https://example.com/webhook2
 webhook3: https://example.com/webhook3
-Step 2: Run Setup Script
-Execute the script 2.Setup_webhooks_json.py by navigating to the "setup_discord_webhooks" folder in your command prompt and running:
 
-bash
-Copy code
+### 2. Setup Webhooks JSON
+
+In the same folder, run the 2.Setup_webhooks_json.py script. This script will process the input file and create a webhooks.json file, containing the configured webhooks.
+
+```plaintext
 python 2.Setup_webhooks_json.py
-This script reads the input file and creates a webhooks.json file with the webhook names and URLs.
 
-Sending Messages
-Step 3: Run Webhook Sender Script
-Execute the webhook_sender.py script by running:
+### Usage
+Now that your webhooks are set up, you can use the webhook_sender.py script to send messages.
 
-bash
-Copy code
+
 python webhook_sender.py
-The script will prompt you to select a webhook by index and enter the message you want to send.
+Select the webhook you want to use.
+Enter your message.
+The message will be sent to the chosen Discord channel through the selected webhook.
 
-Important Notes
-Make sure you have Python installed on your system.
+Troubleshooting
+### If you encounter issues, make sure the webhooks.json file is properly generated in the "setup_discord_webhooks" folder.
 
-Ensure that the requests library is installed. If not, install it by running:
-
-bash
-Copy code
-pip install requests
-If you encounter any issues, double-check the input file format and paths.
-
-Now you're ready to efficiently send messages to your Discord channels using webhooks!
+### Contributing
+If you'd like to contribute to this project, feel free to open an issue or submit a pull request.
