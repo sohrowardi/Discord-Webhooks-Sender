@@ -1,66 +1,30 @@
-import requests
+# webhook_sender.py
 import json
+import requests
 
-config_file = "webhooks.json"
+def load_webhooks(file="webhooks.json"):
+    with open(file, 'r') as json_file:
+        webhooks = json.load(json_file)
+    return webhooks
 
-def load_webhooks():
-    try:
-        with open(config_file, "r") as file:
-            return json.load(file)
-    except FileNotFoundError:
-        return {}
+def select_channel(webhooks):
+    print("Available Webhooks:")
+    for i, (name, _) in enumerate(webhooks.items()):
+        print(f"{i + 1}. {name}")
 
-def save_webhooks(webhooks):
-    with open(config_file, "w") as file:
-        json.dump(webhooks, file, indent=2)
+    index = int(input("Enter the index of the webhook you want to use: ")) - 1
+    selected_webhook = list(webhooks.values())[index]
+    return selected_webhook
 
-def send_webhook_message(webhook_url, message):
-    data = {
-        "content": message
-    }
+def send_message(webhook_url, message):
+    payload = {"content": message}
+    headers = {"Content-Type": "application/json"}
+    response = requests.post(webhook_url, json=payload, headers=headers)
+    print(f"Message sent. Response: {response.status_code}")
 
-    headers = {
-        "Content-Type": "application/json"
-    }
+if __name__ == "__main__":
+    webhooks = load_webhooks()
+    selected_webhook = select_channel(webhooks)
 
-    try:
-        response = requests.post(webhook_url, data=json.dumps(data), headers=headers)
-        response.raise_for_status()  # Raise an exception for non-2xx status codes
-
-        if response.status_code == 204:
-            print("Message sent successfully!")
-        else:
-            print("Failed to send message. Error:", response.status_code)
-    except requests.exceptions.RequestException as e:
-        print("An error occurred while sending the message:", str(e))
-
-# Display available webhook options
-print("Available Webhooks:")
-webhooks = load_webhooks()
-for key, value in webhooks.items():
-    print(f"{key}. {value['name']}")
-
-while True:
-    webhook_option = input("Enter the webhook option number (or 0 to quit): ")
-
-    if webhook_option == '0':
-        print("Goodbye!")
-        break
-
-    if webhook_option.isdigit():
-        webhook_option = int(webhook_option)
-        webhook = webhooks.get(webhook_option)
-
-        if webhook:
-            webhook_name = webhook["name"]
-            webhook_url = webhook["url"]
-
-            message = input(f"Enter your message for {webhook_name}: ")
-            send_webhook_message(webhook_url, message)
-        else:
-            print("Invalid webhook option. Please try again.")
-    else:
-        print("Invalid input. Please enter a number.")
-
-# Save the webhooks for future use
-save_webhooks(webhooks)
+    message = input("Enter your message: ")
+    send_message(selected_webhook, message)
