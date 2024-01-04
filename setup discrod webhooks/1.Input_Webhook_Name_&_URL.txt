@@ -1,9 +1,5 @@
-# 1.Input_Webhook_Name_&_URL
+# Input Webhook Name & URL:
 
-#webhook1: https://example.com/webhook1
-#webhook2: https://example.com/webhook2
-#webhook3: https://example.com/webhook3
-
-rule: https://discord.com/api/webhooks/1121573911667154964/ChWhKYnEaG-OxgxSXfKSU8oup36IaDK0y824ZepE-i2CmVmc9jA-T1A7PzFg4zSrg4QR
-
-announcement: https://discord.com/api/webhooks/1121577761505562644/kaKrke4Zxshu_F-GNTMe4f5UDLzN91NtkP8ye7hxR8O789RQzNHHsYb8UF0xubTsymYO
+webhook1: https://example.com/webhook1
+webhook2: https://example.com/webhook2
+webhook3: https://example.com/webhook3

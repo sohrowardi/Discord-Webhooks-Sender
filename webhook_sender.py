@@ -1,11 +1,23 @@
 # webhook_sender.py
 import json
+import os
 import requests
 
+def find_webhooks_file(starting_path="."):
+    for root, dirs, files in os.walk(starting_path):
+        if "webhooks.json" in files:
+            return os.path.join(root, "webhooks.json")
+    return None
+
 def load_webhooks(file="webhooks.json"):
-    with open(file, 'r') as json_file:
-        webhooks = json.load(json_file)
-    return webhooks
+    found_file = find_webhooks_file()
+    if found_file:
+        with open(found_file, 'r') as json_file:
+            webhooks = json.load(json_file)
+        return webhooks
+    else:
+        print("Error: webhooks.json not found.")
+        return {}
 
 def select_channel(webhooks):
     print("Available Webhooks:")
